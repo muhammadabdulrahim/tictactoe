@@ -1,13 +1,16 @@
 CC		:= gcc
 CFLAGS	:= -Wall
-SRCS	:= tictactoe.c
-OBJS	:= ${SRCS:.c=.o}
-TARGET	:= ${SRCS:.c=.a}
+SRCS	:= $(wildcard *.c)
+OBJS	:= $(SRCS:.c=.o)
+TARGET	:= tictactoe.a
 
 default: all
 
 all: $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+
+clean:
+	rm $(OBJS) $(TARGET)
 
 run:
 	./$(TARGET)

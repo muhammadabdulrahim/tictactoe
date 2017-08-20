@@ -1,40 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "tictactoe.h"
 
-#define BOARD_SIZE 9
-
-enum token {
-	TOKEN_NONE,
-	TOKEN_X,
-	TOKEN_O
-};
-
-enum position {
-	TOP_LEFT,//0
-	TOP_CENTER,
-	TOP_RIGHT,
-	CENTER_LEFT,
-	CENTER_CENTER,
-	CENTER_RIGHT,
-	BOTTOM_LEFT,
-	BOTTOM_CENTER,
-	BOTTOM_RIGHT
-};
-
-typedef struct struct_board
-{
-	short int tokens[BOARD_SIZE];
-} board;
-
-
-void clear_board(board *b);
-void make_ai_move(board *b);
-void set_token(board *b, short int token, short int position);
-char get_token(short int token);
-bool is_board_full(board b);
-void print_board(board b);
-
+/* Set all board tokens to TOKEN_NONE */
 void clear_board(board *b)
 {
 	int i;
@@ -44,14 +13,13 @@ void clear_board(board *b)
 	}
 }
 
-
-//	Assume AI is always O
+/* Logic for AI move decision making */
 void make_ai_move(board *b)
 {
 	//	TODO: Pick first spot available
 	if( is_board_full(*b) )
 	{
-		printf("ERROR: AI CANNOT MAKE ANY LEGAL MOVE");
+		puts("ERROR: AI CANNOT MAKE ANY LEGAL MOVE");
 		exit(-1);
 	}
 
@@ -69,19 +37,20 @@ void make_ai_move(board *b)
 	exit(-1);
 }
 
-
+/* Set the given token in a given position */
 void set_token(board *b, short int token, short int position)
 {
-	//	TODO: Assume position is in bounds
 	printf("Token: %d, Position: %d\n",token,position);
 	(*b).tokens[position] = token;
 }
 
+/* Get the string representation of the token at the position */
 char get_token(short int token)
 {
 	return token == TOKEN_X ? 'X' : token == TOKEN_O ? 'O' : '-';
 }
 
+/* Check if board is full */
 bool is_board_full(board b)
 {
 	int i;
@@ -93,6 +62,7 @@ bool is_board_full(board b)
 	return true;
 }
 
+/* Print the board to the terminal */
 void print_board(board b)
 {
 	printf("%c|%c|%c\n",
@@ -114,26 +84,4 @@ void print_board(board b)
 	);
 
 	puts("");
-}
-
-
-int main()
-{
-	board b;
-	clear_board(&b);
-	set_token(&b,TOKEN_X,TOP_CENTER);
-	puts("AI will make moves:");
-	while( true )
-	{
-		make_ai_move(&b);
-		print_board(b);
-	}
-
-	//set_token(&b,TOKEN_X,TOP_CENTER);
-	//print_board(b);
-	//printf("Is board full? %d\n",is_board_full(b));
-
-
-
-	return 0;
 }
