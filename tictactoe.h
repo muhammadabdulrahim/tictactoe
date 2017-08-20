@@ -22,6 +22,13 @@ enum position {
 	BOTTOM_RIGHT
 };
 
+enum winner {
+	WINNER_NONE,
+	WINNER_TIE,
+	WINNER_PLAYER,
+	WINNER_AI
+};
+
 typedef struct struct_board
 {
 	short int tokens[BOARD_SIZE];
@@ -32,6 +39,7 @@ void make_ai_move(board *b);
 void set_token(board *b, short int token, short int position);
 char get_token(short int token);
 bool is_board_full(board b);
+int get_winner(board b);
 void print_board(board b);
 
 #endif

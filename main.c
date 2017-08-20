@@ -56,6 +56,28 @@ int main()
 		set_token(&b, TOKEN_X, move);
 		print_board(b);
 
+		// Check win condition
+		switch( get_winner(b) )
+		{
+			default:
+			case WINNER_NONE:
+				break;
+			case WINNER_TIE:
+				do_game_loop = false;
+				puts("TIE GAME!");
+				break;
+			case WINNER_PLAYER:
+				do_game_loop = false;
+				puts("YOU WIN!");
+				break;
+			case WINNER_AI:
+				do_game_loop = false;
+				puts("YOU LOSE!");
+				break;
+		}
+
+		if( !do_game_loop ) break;
+
 		// TODO: Enemy AI turn
 		puts("ENEMY TURN");
 

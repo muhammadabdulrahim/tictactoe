@@ -61,6 +61,93 @@ bool is_board_full(board b)
 	return true;
 }
 
+/* Get the winner, if any */
+int get_winner(board b)
+{
+	// Top horizontal
+	if(
+		b.tokens[TOP_LEFT] != TOKEN_NONE && 
+		b.tokens[TOP_LEFT] == b.tokens[TOP_CENTER] &&
+		b.tokens[TOP_LEFT] == b.tokens[TOP_RIGHT]
+	)
+	{
+		return b.tokens[TOP_LEFT]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Center horizontal
+	if(
+		b.tokens[CENTER_LEFT] != TOKEN_NONE && 
+		b.tokens[CENTER_LEFT] == b.tokens[CENTER_CENTER] &&
+		b.tokens[CENTER_LEFT] == b.tokens[CENTER_RIGHT]
+	)
+	{
+		return b.tokens[CENTER_LEFT]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Bottom horizontal
+	if(
+		b.tokens[BOTTOM_LEFT] != TOKEN_NONE && 
+		b.tokens[BOTTOM_LEFT] == b.tokens[BOTTOM_CENTER] &&
+		b.tokens[BOTTOM_LEFT] == b.tokens[BOTTOM_RIGHT]
+	)
+	{
+		return b.tokens[BOTTOM_LEFT]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Left vertical
+	if(
+		b.tokens[TOP_LEFT] != TOKEN_NONE &&
+		b.tokens[TOP_LEFT] == b.tokens[CENTER_LEFT] &&
+		b.tokens[TOP_LEFT] == b.tokens[BOTTOM_LEFT]
+	)
+	{
+		return b.tokens[TOP_LEFT]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Center vertical
+	if(
+		b.tokens[TOP_CENTER] != TOKEN_NONE &&
+		b.tokens[TOP_CENTER] == b.tokens[CENTER_CENTER] &&
+		b.tokens[TOP_CENTER] == b.tokens[BOTTOM_CENTER]
+	)
+	{
+		return b.tokens[TOP_CENTER]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Right vertical
+	if(
+		b.tokens[TOP_RIGHT] != TOKEN_NONE &&
+		b.tokens[TOP_RIGHT] == b.tokens[CENTER_RIGHT] &&
+		b.tokens[TOP_RIGHT] == b.tokens[BOTTOM_RIGHT]
+	)
+	{
+		return b.tokens[TOP_RIGHT]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Top-left to bottom-right diagonal
+	if(
+		b.tokens[TOP_LEFT] != TOKEN_NONE &&
+		b.tokens[TOP_LEFT] == b.tokens[CENTER_CENTER] &&
+		b.tokens[TOP_LEFT] == b.tokens[BOTTOM_RIGHT]
+	)
+	{
+		return b.tokens[TOP_LEFT]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Bottom-left to top-right diagonal
+	if(
+		b.tokens[BOTTOM_LEFT] != TOKEN_NONE &&
+		b.tokens[BOTTOM_LEFT] == b.tokens[CENTER_CENTER] &&
+		b.tokens[BOTTOM_LEFT] == b.tokens[TOP_RIGHT]
+	)
+	{
+		return b.tokens[BOTTOM_LEFT]==TOKEN_X ? WINNER_PLAYER : WINNER_AI;
+	}
+
+	// Check if tie condition is met
+	return is_board_full(b) ? WINNER_TIE : WINNER_NONE;
+}
+
 /* Print the board to the terminal */
 void print_board(board b)
 {
