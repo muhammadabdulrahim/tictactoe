@@ -2,6 +2,25 @@
 #include <stdbool.h>
 #include "tictactoe.h"
 
+bool has_winner(board b)
+{
+	switch( get_winner(b) )
+	{
+		default:
+		case WINNER_NONE:
+			return false;
+		case WINNER_TIE:
+			puts("TIE GAME!");
+			return true;
+		case WINNER_PLAYER:
+			puts("YOU WIN!");
+			return true;
+		case WINNER_AI:
+			puts("YOU LOSE!");
+			return true;
+	}
+}
+
 int get_move()
 {
 	int move;
@@ -23,18 +42,15 @@ int main()
 	clear_board(&b);
 
 	// Main game loop
-	bool do_game_loop = true;
-	while( do_game_loop )
+	while( true )
 	{
-		// Display board at start of loop
-		print_board(b);
-
 		// Player turn
 		puts("PLAYER TURN");
 		puts("  1|2|3");
 		puts("  4|5|6");
 		puts("  7|8|9");
 		
+		// Query for player input
 		int move = -1;
 		do
 		{
@@ -53,36 +69,16 @@ int main()
 
 		}while( move<0 || move>=BOARD_SIZE );
 
+		// Set player input
 		set_token(&b, TOKEN_X, move);
 		print_board(b);
+		if( has_winner(b) ) break;
 
-		// Check win condition
-		switch( get_winner(b) )
-		{
-			default:
-			case WINNER_NONE:
-				break;
-			case WINNER_TIE:
-				do_game_loop = false;
-				puts("TIE GAME!");
-				break;
-			case WINNER_PLAYER:
-				do_game_loop = false;
-				puts("YOU WIN!");
-				break;
-			case WINNER_AI:
-				do_game_loop = false;
-				puts("YOU LOSE!");
-				break;
-		}
-
-		if( !do_game_loop ) break;
-
-		// TODO: Enemy AI turn
+		// Enemy AI turn
 		puts("ENEMY TURN");
-
-		// TODO: Determine if loop is over
-		//do_game_loop = false;
+		make_ai_move(&b);
+		print_board(b);
+		if( has_winner(b) ) break;
 	}
 
 	puts("GAME OVER. Thank you for playing!");

@@ -16,14 +16,7 @@ void clear_board(board *b)
 /* Logic for AI move decision making */
 void make_ai_move(board *b)
 {
-	//	TODO: Pick first spot available
-	if( is_board_full(*b) )
-	{
-		puts("ERROR: AI CANNOT MAKE ANY LEGAL MOVE");
-		exit(-1);
-	}
-
-	int i=0;
+	int i;
 	for( i=0; i<BOARD_SIZE; i++ )
 	{
 		if( (*b).tokens[i]==TOKEN_NONE )
@@ -32,9 +25,6 @@ void make_ai_move(board *b)
 			return;
 		}
 	}
-
-	puts("ERROR: AI CANNOT MAKE ANY LEGAL MOVE");
-	exit(-1);
 }
 
 /* Set the given token in a given position */
