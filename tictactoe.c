@@ -40,7 +40,6 @@ void make_ai_move(board *b)
 /* Set the given token in a given position */
 void set_token(board *b, short int token, short int position)
 {
-	printf("Token: %d, Position: %d\n",token,position);
 	(*b).tokens[position] = token;
 }
 
@@ -65,19 +64,19 @@ bool is_board_full(board b)
 /* Print the board to the terminal */
 void print_board(board b)
 {
-	printf("%c|%c|%c\n",
+	printf("  %c|%c|%c\n",
 		get_token(b.tokens[TOP_LEFT]),
 		get_token(b.tokens[TOP_CENTER]),
 		get_token(b.tokens[TOP_RIGHT])
 	);
 
-	printf("%c|%c|%c\n",
+	printf("  %c|%c|%c\n",
 		get_token(b.tokens[CENTER_LEFT]),
 		get_token(b.tokens[CENTER_CENTER]),
 		get_token(b.tokens[CENTER_RIGHT])
 	);
 
-	printf("%c|%c|%c\n",
+	printf("  %c|%c|%c\n",
 		get_token(b.tokens[BOTTOM_LEFT]),
 		get_token(b.tokens[BOTTOM_CENTER]),
 		get_token(b.tokens[BOTTOM_RIGHT])
